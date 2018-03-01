@@ -1,0 +1,89 @@
+link(rel='stylesheet' href="css/backend/role.css")
+block content
+  div.container-fluid(ng-controller="sfmsProjectController")
+    span 
+      h2 项目新增
+    form(method="post",name="projectAdd" )
+      table.table.table-bordered.table-hover.definedwidth.m10
+        tr
+          td(width="15%",class="tableleft") 项目负责人
+          td
+            jason-select.input(name='ProjectManageID',ng-model='formdata.ProjectManageID',source='/backuser',stext='UserName',svalue='AccountID',sactive='1',required)
+     
+        tr
+          td(width="15%",class="tableleft") 项目名称
+          td
+            input(type="textview",name="ProjectName",ng-model="formdata.ProjectName",ng-maxlength='45',required)
+            small.error(ng-show="projectAdd.ProjectName.$error.maxlength && projectAdd.ProjectName.$touched") 应用名称最多45位
+
+        tr
+          td(width="15%",class="tableleft") 项目成员 
+          td
+            table.table-bordered.table-hover
+              tbody 
+                  tr
+                    td(style="width:150px;height:30px") 成员职责
+                    td(style="width:150px;height:30px") 成员姓名
+                    td(style="width:80px;height:30px") 成员账号
+                    td(style="width:80px;height:30px") 操作
+              tbody
+                  tr(ng-repeat="a in formdata.data")
+                    td(ng-model="formdata.data.duty" style="line-height:34px;font-size:18px;")  {{a.duty}}
+                    td(ng-model="formdata.data.userName" style="line-height:34px;font-size:18px;")  {{a.userName}}
+                    td(ng-model="formdata.data.userID" style="line-height:34px;font-size:18px;")  {{a.userID}}
+                    td 
+                      button(ng-click="resetUser(this)" style="width:80px;height:34px") 重置
+                  tr 
+                    td
+                      input(type="textview",name='duty',ng-model="user.duty",style="width:150px;height:34px",ng-maxlength='50')
+                    td
+                      select(ng-model='user.userIndex' ng-change= "userChanged()") 
+                        option(ng-repeat="item in UserNames" value='{{$index}}') {{item.UserName}}
+                    td(style="width:150px;")
+                        span(ng-model='user.userID' style="width:150px;")  {{user.userID}}  
+                    td 
+                      button(ng-click="addUser(user)" style="width:80px;height:34px") 添加
+            small.error(ng-show="projectAdd.duty.$error.maxlength && projectAdd.duty.$touched") 成员职责最多50位       
+
+        tr
+          td(width="15%",class="tableleft") 项目截止时间
+          td
+            input(type="date",name="projectEndTime",ng-model="formdata.ProjectEndTime",required)
+            
+        tr
+          td(width="15%",class="tableleft") 项目经费预算
+          td
+            input(type="number",name="ProjectPrice",ng-model="formdata.ProjectPrice",ng-maxlength='45',required)
+            
+            small.error(ng-show="projectAdd.ProjectPrice.$error.maxlength && projectAdd.ProjectPrice.$touched") 预算最多50位
+            
+        tr
+          td(width="15%",class="tableleft") 项目进度
+          td
+            input(type="textview",name="ProjectTimeLine",ng-model="formdata.ProjectTimeLine",ng-maxlength='45',required)
+            
+            small.error(ng-show="projectAdd.ProjectTimeLine.$error.maxlength && projectAdd.ProjectTimeLine.$touched") 进度最多45位
+        
+        tr
+          td(width="15%",class="tableleft") 项目状态
+          td
+             input(type="radio",name="ProjectStatus",value="结项",ng-model='formdata.ProjectStatus',style="width:15px;height:15px",checked)
+             |结项&nbsp&nbsp&nbsp
+                       
+             input(type="radio",name="ProjectStatus",value="待完成",ng-model="formdata.ProjectStatus",style="width:15px;height:15px")
+             |待完成
+      
+        
+        tr
+          td(width="15%",class="tableleft") 项目描述 
+          td
+            textarea(type="textview",name="ProjectDesc",ng-model='formdata.ProjectDesc',rows="5",cols="30",ng-maxlength='45',required)
+            
+            small.error(ng-show="projectAdd.ProjectDesc.$error.maxlength && projectAdd.ProjectDesc.$touched") 描述最多45位
+
+        tr
+          td(class="tableleft")
+          td
+            button.btn.btn-sm.btn-primary(type="submit",ng-disabled="projectAdd.$invalid",ng-click="addnew(formdata,'/sfms/api/project')") 添加
+            
+            a.btn.btn-sm.btn-success(href='#sfms/projectManage',ng-click='search()') 返回列表

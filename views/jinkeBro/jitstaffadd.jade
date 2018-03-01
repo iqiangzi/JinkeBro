@@ -1,0 +1,54 @@
+link(rel='stylesheet' href="css/backend/role.css")
+block content
+    div.container-fluid
+        span
+            h2 员工新增
+        form(method="post"  name="stuffAdd")
+            table.table.table-bordered.table-hover.definedwidth.m10
+                tr
+                    td(width="15%",class="tableleft") 员工姓名
+                    td
+                        input(type="textview",name="StaffName",ng-model='formdata.StaffName',ng-maxlength='50',required)
+                        
+                        small.error(ng-if="stuffAdd.StaffName.$error.maxlength && stuffAdd.StaffName.$touched") 姓名最多50位
+
+                tr
+                    td(width="15%",class="tableleft") 员工性别
+                    td
+                        input(type="radio",name="Sex",value="1",ng-model="formdata.Sex",style="width:15px;height:15px",checked)
+                        | 男&nbsp&nbsp&nbsp&nbsp
+                        
+                        input(type="radio",name="Sex",value="2",ng-model="formdata.Sex",style="width:15px;height:15px")
+                        | 女
+
+                tr
+                    td(width="15%",class="tableleft") 员工类型
+                    td
+                        input(type="radio",name="StaffType",value="1",ng-model="formdata.StaffType",style="width:15px;height:15px",checked)
+                        | 供应商&nbsp&nbsp&nbsp&nbsp
+                        
+                        input(type="radio",name="StaffType",value="2",ng-model="formdata.StaffType",style="width:15px;height:15px")
+                        | 配送员&nbsp&nbsp&nbsp&nbsp
+                        
+                        input(type="radio",name="StaffType",value="3",ng-model="formdata.StaffType",style="width:15px;height:15px")
+                        | 管理员
+
+                tr
+                    td(width="15%",class="tableleft") 电话号码
+                    td
+                        input(type="phone",name="Phone",ng-model="formdata.Phone",ng-maxlength='11',ng-minlength='11',required)
+                        
+                        small.error(ng-if="stuffAdd.Phone.$error.maxlength || stuffAdd.Phone.$error.minlength && stuffAdd.Phone.$touched") 电话号码为11位
+                tr
+                    td(width="15%",class="tableleft") 员工职位
+                    td
+                        input(type="text",name="Position",ng-model="formdata.Position",ng-maxlength='50',required)
+                        
+                        small.error(ng-if="stuffAdd.Position.$error.maxlength && stuffAdd.Position.$touched") 职位名称最多50位
+                tr
+                    td
+                    td
+                        button.btn.btn-sm.btn-primary(type="submit" ng-disabled="stuffAdd.$invalid",ng-click="addnew(formdata,'/jinkeBro/staff')") 添加
+                        
+                        a.btn.btn-sm.btn-success(href='#jinkeBro/jitstaffmanage',ng-click='search()') 返回列表
+

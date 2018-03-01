@@ -1,0 +1,71 @@
+link(rel='stylesheet' href="css/backend/role.css")
+block content
+  div.container-fluid
+    span 
+      h2 财务审核
+    jason-form(method="post",source='/sfms/api/finance',conf='paginationConf',tocc="FIName,FIType,InOutType,ProjectID,UserID")
+     form(name="financeCheck",ng-controller="userEditController")
+      table.table.table-bordered.table-hover.definedwidth.m10      
+        tr
+          td(width="15%",class="tableleft") 财务名称
+          td
+            span(name='FIName',ng-model='paginationConf.formdata.FIName') {{paginationConf.formdata.FIName}}
+            
+        tr
+          td(width="15%",class="tableleft") 财务类型
+          td
+            span(name='FIType',ng-model='paginationConf.formdata.FIType') {{paginationConf.formdata.FITypeValue}}
+            
+        tr
+          td(width="15%",class="tableleft") 财务收支
+          td
+            span(name='InOutType',ng-model='paginationConf.formdata.InOutType') {{paginationConf.formdata.InOutTypeValue}}
+            
+        tr
+          td(width="15%",class="tableleft") 财务金额 
+          td
+            span(name='FIPrice',ng-model="paginationConf.formdata.FIPrice") {{paginationConf.formdata.FIPrice}}
+          
+
+        tr
+          td(width="15%",class="tableleft") 所属项目
+          td
+            span(name='ProjectId',ng-model='paginationConf.formdata.ProjectId' ) {{paginationConf.formdata.ProjectName}}
+
+        tr
+          td(width="15%",class="tableleft") 相关用户
+          td
+            span(name='UserID',ng-model='paginationConf.formdata.UserID' ) {{paginationConf.formdata.UserName}}
+     
+        tr
+          td(width="15%",class="tableleft") 申请时间
+          td
+            span(name='CreateTime',ng-model='paginationConf.formdata.CreateTime') {{paginationConf.formdata.CreateTime}}
+            
+        tr
+          td(width="15%",class="tableleft") 财务描述 
+          td
+            span(type="textview",ng-model='paginationConf.formdata.Remark',rows="5",cols="30",ng-maxlength='200',required) {{paginationConf.formdata.Remark}}
+
+        tr
+          td(width="15%",class="tableleft") 是否通过
+          td
+            input(type="radio",name="FIStatus",value="通过",ng-model="paginationConf.formdata.FIStatu",style="width:15px;height:15px",checked)
+            | 通过&nbsp&nbsp&nbsp
+                      
+            input(type="radio",name="FIStatus",value="不通过",ng-model="paginationConf.formdata.FIStatu",style="width:15px;height:15px")
+            | 不通过
+
+        tr
+          td(width="15%",class="tableleft") 审核意见 
+          td
+            textarea(type="textview",name="Memo",ng-model='paginationConf.formdata.Memo',rows="5",cols="30",ng-maxlength='45',required) 
+            
+            small.error(ng-if="financeCheck.Memo.$error.maxlength && financeCheck.Memo.$touched") 审核意见最多45位
+
+        tr
+          td(class="tableleft")
+          td
+            button.btn.btn-sm.btn-primary(type="submit",ng-disabled="financeCheck.$invalid",ng-click="newedit(paginationConf.formdata,'/sfms/api/finance/check')") 确认审核
+            
+            a.btn.btn-sm.btn-success(href='#sfms/financeManage',ng-click='search()') 返回列表

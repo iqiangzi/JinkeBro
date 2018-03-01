@@ -1,0 +1,52 @@
+link(rel='stylesheet' href="css/backend/role.css")
+block content
+    div.container-fluid(ng-controller='functionController')
+        div.row
+            div.col-lg-7.col-md-7.col-sm-7
+                tree-grid(showHead='true' tree-data="tree_data" col_defs='col_defs' expand-on="expanding_property" expandOn="ApplicationID" on-clickdelete='delete(branch,parent)' on-clickedit='clickHanderedit(branch)'  on-click='clickHander(branch)' on-clickadd='clickHanderAdd(branch)')
+            div.col-lg-4.col-md-4.col-sm-4.function
+                h4 功能点编辑
+                form.form-horizontal(role='form')
+                    table.table.table-bordered.table-hover.definedwidth.m10
+                        tr
+                            td(width="15%",class="tableleft") 应用ID
+                            td
+                               jason-select.input(ng-model='currentData.ApplicationID',name='ApplicationID' source='/app' stext='ApplicationName' svalue='ID',required,disabled='disable')
+                        tr
+                            td(width="15%",class="tableleft") 	父节点
+                            td
+                                input(type='text' ng-model='currentData.ParentID',disabled='disable')
+                        tr
+                            td(width="15%",class="tableleft") 节点层级
+                            td
+                                input(type='text' ng-model='currentData.FunctionName',ng-disabled='disable')
+
+                        tr
+                            td(width="15%",class="tableleft") 	功能名称 
+                            td
+                                input(type='text' ng-model='currentData.FunctionName',ng-disabled='disable')
+                        tr
+                            td(class="tableleft")  功能代码
+                            td
+                                input(type='text' ng-model='currentData.FunctionCode',ng-disabled='disable')
+                
+                        tr
+                            td(width="15%",class="tableleft") 
+                            td
+                                button.btn.btn-primary(ng-click='edit()',href='') {{btnSaveMessage}}
+                                button.btn.btn-primary(style='margin-left:20px;' ng-click='cancel()',href='') 取消
+                        
+                
+        div.modal.fade(id='functionModel')
+            div.modal-dialog
+                div.modal-content
+                    div.modal-header
+                        button.close(type='button', data-dismiss='modal')
+                            span(aria-hidden='true') ×
+                            span.sr-only Close
+                        h4.modal-title {{Config.ModelTitle}}
+                    div.modal-body
+                        p {{Config.ModelBody}}
+                    div.modal-footer
+                        button.btn.btn-default(type='button', ng-click='Config.Cancel()') {{Config.BtnCancel}}
+                        button.btn.btn-primary(type='button',ng-click='Config.Save()') {{Config.BtnSave}}

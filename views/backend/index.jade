@@ -1,0 +1,130 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8' name="viewport")
+    title 金科小哥
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    // basic styles
+    link(href='assets/css/bootstrap.min.css', rel='stylesheet')
+    link(rel='stylesheet', href='assets/css/font-awesome.min.css')
+    link(rel='stylesheet', href='assets/css/ace.min.css')
+    link(rel='stylesheet', href='assets/css/ace-skins.min.css')
+    link(rel='stylesheet', href='css/treeGrid.css')
+
+  body(ng-app='myApp' ng-controller="baseController")
+    #navbar.navbar.navbar-default
+      #navbar-container.navbar-container
+        .navbar-header.pull-left
+          a.navbar-brand(href='#/sfms/showMessage')
+            small
+              i.icon-leaf
+              |                     金科小哥
+          // /.brand
+        // /.navbar-header  左侧的名称和树叶
+        .navbar-header.pull-right(role='navigation')
+          ul.nav.ace-nav
+            li.light-blue
+              a.dropdown-toggle(data-toggle='dropdown', href='')
+                img.nav-user-photo(src='assets/avatars/user.jpg', alt="Jason's Photo")
+                span.user-info
+                  small 欢迎光临,
+                  | 								  {{loginUserInfo.UserName}}
+                i.icon-caret-down
+              ul.user-menu.pull-right.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-close
+                li
+                  a(ng-click="turn()",href='')
+                    i.icon-user
+                    |                                 个人资料
+                li.divider
+                li
+                  a(ng-click="back()",href='')
+                    i.icon-off
+                    |                                 退出
+          // /.ace-nav
+        // /.navbar-header  右侧
+      // /.container
+    #main-container.main-container
+      .main-container-inner
+        a#menu-toggler.menu-toggler(href='#')
+          span.menu-text
+        #sidebar.sidebar
+          #sidebar-shortcuts.sidebar-shortcuts
+            #sidebar-shortcuts-large.sidebar-shortcuts-large
+              button.btn.btn-success
+                i.icon-signal
+              button.btn.btn-info
+                i.icon-pencil
+              button.btn.btn-warning
+                i.icon-group
+              button.btn.btn-danger
+                i.icon-cogs
+            #sidebar-shortcuts-mini.sidebar-shortcuts-mini
+              span.btn.btn-success
+              span.btn.btn-info
+              span.btn.btn-warning
+              span.btn.btn-danger
+ 
+         
+          ul.nav.nav-list
+            li(ng-repeat='menu in menus') 
+              a.dropdown-toggle(href='{{menu.Url}}') 
+                i(class='{{menu.icon}}')
+                span.menu-text  {{menu.MenuName}}
+               // b.arrow.icon-angle-down
+              ul.submenu
+                li(ng-repeat='menuchid in menu.children')
+                  a(href='{{menuchid.Url}}' ng-click='pageInit()')
+                    i.icon-double-angle-right
+                    span {{menuchid.MenuName}}
+             // /.nav-list
+          #sidebar-collapse.sidebar-collapse
+            i.icon-double-angle-left(data-icon1='icon-double-angle-left', data-icon2='icon-double-angle-right')
+        .main-content
+          .page-content.box(ng-view='')
+             img(src='imgs/login_pic.png',style="width:800px;height:500px;")
+          
+           
+
+script(src='assets/js/jquery-2.0.3.min.js')
+//script(src='assets/js/bootstrap.min.js')
+script(src='assets/js/ace.min.js')
+script(src='assets/js/ace-extra.min.js')
+script(src='/bower_components/angular/angular.min.js')
+script(src='/bower_components/angular/angular-route.min.js')
+script(src='/js/angularjs/directive/pagecontent.js')
+script(src='/js/angularjs/directive/pagination.js')
+script(src='/js/angularjs/directive/select.js')
+script(src='/js/angularjs/directive/charts.js')
+script(src='/js/angularjs/directive/form.js')
+script(type="text/javascript" src="js/angularjs/directive/tree-grid-directive.js")
+script(src='/js/angularjs/config/baseconfig.js')
+script(src='/js/angularjs/service/baseservice.js')
+
+script(src='/js/angularjs/controller/baseController.js')
+script(src='/js/angularjs/controller/roleEditController.js')
+script(src='/js/angularjs/controller/roleAddController.js')
+script(src='/js/angularjs/controller/functionController.js')
+script(src='/js/angularjs/controller/userRoleController.js')
+script(src='/js/angularjs/controller/userEditController.js')
+script(src='/js/angularjs/controller/userInfoController.js')
+script(src='/js/angularjs/controller/userMenuController.js')
+script(src='/js/angularjs/controller/messageController.js')
+script(src='/js/angularjs/controller/kpiAddController.js')
+
+
+script(src='/js/angularjs/controller/sfmsProjectController.js')
+script(src='/js/angularjs/controller/sfmsApiFinanceAddController.js')
+script(src='/js/angularjs/controller/sfmsApiFinanceEditController.js')
+
+
+script(src='/js/angularjs/controller/jitgoodsAddController.js')
+
+//bootstrap-fileinput 组件
+link(rel='stylesheet', href="bower_components/bootstrap-fileinput/css/fileinput.min.css")
+link(href="/bower_components/bootstrap-fileinput/themes/explorer/theme.css", media="all", rel="stylesheet", type="text/css")
+script(src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")
+script(src="/bower_components/bootstrap-fileinput/js/fileinput.min.js", type="text/javascript")
+//script(src="/bower_components/bootstrap-fileinput/js/plugins/sortable.js", type="text/javascript")
+script(src="/bower_components/bootstrap-fileinput/themes/explorer/theme.js", type="text/javascript")
+script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", type="text/javascript")
+script(src="/bower_components/bootstrap-fileinput/js/locales/zh.js" type="text/javascript")

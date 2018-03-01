@@ -1,0 +1,89 @@
+link(rel='stylesheet' href="css/backend/role.css")
+block content
+  div.container-fluid
+    span 
+      h2 用户新增
+    form(method="post"  name="userInfo" ng-controller="userInfoController")
+      table.table.table-bordered.table-hover.definedwidth.m10
+        tr
+          td(width="15%",class="tableleft") 应用名称
+          td      
+            select(name='ApplicationID',ng-model='formdata.ApplicationID',required)
+              option(ng-repeat="item in applicationNames",value='{{item.ID}}') {{item.ApplicationName}}
+            
+        tr
+          td(width="15%",class="tableleft") 用户姓名 
+          td
+            input(type="textview",name="UserName",ng-model='formdata.UserName',ng-maxlength='50',required)
+            
+            small.error(ng-if="userInfo.UserName.$error.maxlength && userInfo.UserName.$touched") 用户姓名最多50位
+           
+        tr
+          td(width="15%",class="tableleft") 密码 
+          td
+            input(type="password",name="Pwd",ng-model="formdata.Pwd",ng-maxlength='50',required)
+            
+            small.error(ng-if="userInfo.Pwd.$error.maxlength && userInfo.Pwd.$touched") 密码最多50位
+           
+        tr
+          td(width="15%",class="tableleft") 账户名 
+          td
+            input(type="textview",name="Account",ng-model="formdata.Account",ng-maxlength='50',required)
+            
+            small.error(ng-if="userInfo.Account.$error.maxlength && userInfo.Account.$touched") 账户最多50位
+  
+
+        tr
+          td(class="tableleft") 是否有效
+          td
+            input(type="radio",name="IsActive",value="1",ng-model="formdata.IsActive",style="width:15px;height:15px",checked)
+            | 有效  &nbsp&nbsp&nbsp
+                      
+            input(type="radio",name="IsActive",value="0",ng-model="formdata.IsActive",style="width:15px;height:15px")
+            | 无效
+
+        tr
+          td(width="15%",class="tableleft") 手机号码 (可选) 
+          td
+            input(type="phone",name="Phone",ng-model="formdata.Phone")
+            
+        
+        tr
+          td(width="15%",class="tableleft") 邮箱 (可选)
+          td
+            input(type="textview",name="Email",ng-model='formdata.Email',ng-maxlength='50')
+            
+            
+                  
+        tr
+          td(width="15%",class="tableleft") 所在学院 (可选) 
+          td
+            select(ng-model='formdata.CollegeID',ng-change= "collegeChanged()")
+              option(ng-repeat="item in college",value='{{item.DictionaryID}}') {{item.DictionaryValue}}
+
+        tr
+          td(width="15%",class="tableleft") 所在班级 (可选)  
+          td
+            select(ng-model='formdata.ClassID')
+              option(ng-repeat="item in cls",value='{{item.DictionaryID}}') {{item.DictionaryValue}}
+
+        tr
+          td(width="15%",class="tableleft") 地址 (可选) 
+          td
+            textarea(type="textview",name="Address",ng-model="formdata.Address",rows="2",cols="30",ng-maxlength='200')
+            
+            small.error(ng-if="userInfo.Address.$error.maxlength && userInfo.Address.$touched") 地址最多200位
+
+        tr
+          td(width="15%",class="tableleft") 备注 (可选)  
+          td
+            textarea(type="textview",name="Memo",ng-model='formdata.Memo',rows="5",cols="30",ng-maxlength='200')
+            
+            small.error(ng-if="userInfo.Memo.$error.maxlength && userInfo.Memo.$touched") 备注最多200位  
+
+        tr
+          td(class="tableleft")
+          td
+            button.btn.btn-sm.btn-primary(type="submit",ng-click="addnew(formdata,'/backuser')") 添加
+            
+            a.btn.btn-sm.btn-success(href='#backend/user',ng-click='search()') 返回列表
